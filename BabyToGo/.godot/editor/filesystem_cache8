@@ -1,7 +1,8 @@
-2a60927148abd1d33b818b535e306557
-::res://::1682827707
-icon.svg::CompressedTexture2D::1166717754978252080::1682825470::1682825608::1::::<><>::
-main_scene.tscn::PackedScene::105331009375107951::1682827540::0::1::::<><>::uid://bq4w28s1h0tfe<>uid://cf2faiw30a35p
-::res://Assets/::1682827707
-StorkDown.png::CompressedTexture2D::6137836555349623418::1682827700::1682827707::1::::<><>::
-StorkUp.png::CompressedTexture2D::2715785220629269755::1682827700::1682827707::1::::<><>::
+fc8a56933c4b1c8d796fdb8f7a9f9475
+::res://::1682828234
+CharacterController2d.gd::GDScript::-1::1682827944::0::1::::<>Node2D<>::
+icon.svg::CompressedTexture2D::1166717754978252080::1682826265::1682828235::1::::<><>::
+main_scene.tscn::PackedScene::105331009375107951::1682828223::0::1::::<><>::uid://bexst6gncq2vf<>uid://ctphjhv4kbw2e
+::res://Assets/::1682828223
+StorkDown.png::CompressedTexture2D::6137836555349623418::1682828223::1682828223::1::::<><>::
+StorkUp.png::CompressedTexture2D::2715785220629269755::1682828223::1682828223::1::::<><>::

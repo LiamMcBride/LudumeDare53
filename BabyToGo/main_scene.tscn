@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bra10aeii2nj"]
+[gd_scene load_steps=5 format=3 uid="uid://bra10aeii2nj"]
 
 [ext_resource type="Texture2D" uid="uid://bexst6gncq2vf" path="res://Assets/StorkUp.png" id="1_7tgp7"]
+[ext_resource type="Script" path="res://CharacterController.gd" id="1_n7r8p"]
 [ext_resource type="Texture2D" uid="uid://ctphjhv4kbw2e" path="res://Assets/StorkDown.png" id="2_ll517"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3q3bv"]
@@ -18,11 +19,13 @@ animations = [{
 }]
 
 [node name="World" type="Node2D"]
+position = Vector2(237, 152)
 
 [node name="Stork" type="Node2D" parent="."]
+script = ExtResource("1_n7r8p")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Stork"]
-position = Vector2(351, 189)
+position = Vector2(2.08165e-12, 2.08165e-12)
 scale = Vector2(0.980469, 0.974104)
 sprite_frames = SubResource("SpriteFrames_3q3bv")
 animation = &"Storky"
