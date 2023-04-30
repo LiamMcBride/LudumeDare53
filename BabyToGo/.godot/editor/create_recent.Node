@@ -1,3 +1,6 @@
+TextureProgressBar
+BoxContainer
+Control
 CollisionShape2D
 CharacterBody2D
 AnimatedSprite2D
