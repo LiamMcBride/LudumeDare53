@@ -3,6 +3,7 @@
 
 extends CharacterBody2D
 
+var health = 100
 @export var rot_amount = 1
 @export var rot_limit = 60
 @export var max_y_speed = 1
@@ -10,6 +11,7 @@ extends CharacterBody2D
 @export var lower_y_limit = 300
 @export var stamina = 6000
 @export var progress: TextureProgressBar
+@export var health_bar: TextureProgressBar
 const SPEED = 300.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -17,11 +19,26 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	progress.max_value = stamina
 	progress.value = stamina
+	health_bar.max_value = health
+	health_bar.value = health
 
 func get_y_velocity():
 	return 10
 
+#player dies
+func death():
+	pass
+
+#Player hits object	
+func hit():
+	pass
+
 func _process(delta):
+	#death
+	if health <= 0:
+		death()
+	
+	
 	if Input.is_action_pressed("LEFT"):
 		var cur_rot = get_rotation()
 		set_rotation(clamp(cur_rot + deg_to_rad(-rot_amount), deg_to_rad(-rot_limit), deg_to_rad(rot_limit)))
@@ -67,3 +84,7 @@ func _physics_process(delta):
 	velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+
+func _on_player_enter_area(body_rid, body, body_shape_index, local_shape_index):
+	health_bar.value -= 10
