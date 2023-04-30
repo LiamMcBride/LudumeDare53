@@ -1,2 +1,3 @@
 res://main_scene.tscn
 res://CharacterController.gd
+res://CharacterBody2D.gd

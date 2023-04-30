@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bra10aeii2nj"]
+[gd_scene load_steps=6 format=3 uid="uid://bra10aeii2nj"]
 
 [ext_resource type="Texture2D" uid="uid://bexst6gncq2vf" path="res://Assets/StorkUp.png" id="1_7tgp7"]
-[ext_resource type="Script" path="res://CharacterController.gd" id="1_n7r8p"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_lx3i5"]
 [ext_resource type="Texture2D" uid="uid://ctphjhv4kbw2e" path="res://Assets/StorkDown.png" id="2_ll517"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3q3bv"]
@@ -18,16 +18,24 @@ animations = [{
 "speed": 1.75
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_q07e4"]
+
 [node name="World" type="Node2D"]
 position = Vector2(237, 152)
 
-[node name="Stork" type="Node2D" parent="."]
-script = ExtResource("1_n7r8p")
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_lx3i5")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Stork"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(0.980469, 0.974104)
+scale = Vector2(0.490234, 0.487052)
 sprite_frames = SubResource("SpriteFrames_3q3bv")
 animation = &"Storky"
 autoplay = "Storky"
 frame_progress = 0.557468
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_q07e4")
+one_way_collision_margin = 11.4
+debug_color = Color(0.996078, 0, 0.223529, 0.419608)
