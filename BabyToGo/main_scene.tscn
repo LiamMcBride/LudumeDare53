@@ -1,3 +1,30 @@
-[gd_scene format=3 uid="uid://bra10aeii2nj"]
+[gd_scene load_steps=4 format=3 uid="uid://bra10aeii2nj"]
+
+[ext_resource type="Texture2D" uid="uid://bexst6gncq2vf" path="res://Assets/StorkUp.png" id="1_7tgp7"]
+[ext_resource type="Texture2D" uid="uid://ctphjhv4kbw2e" path="res://Assets/StorkDown.png" id="2_ll517"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3q3bv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ll517")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_7tgp7")
+}],
+"loop": true,
+"name": &"Storky",
+"speed": 1.75
+}]
 
 [node name="World" type="Node2D"]
+
+[node name="Stork" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Stork"]
+position = Vector2(351, 189)
+scale = Vector2(0.980469, 0.974104)
+sprite_frames = SubResource("SpriteFrames_3q3bv")
+animation = &"Storky"
+autoplay = "Storky"
+frame_progress = 0.557468
