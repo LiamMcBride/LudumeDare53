@@ -1,3 +1,6 @@
+#Player controller via Godot template
+#Modified by Luke, Tad, Liam
+
 extends CharacterBody2D
 
 @export var rot_amount = 1
@@ -19,7 +22,6 @@ func get_y_velocity():
 	return 10
 
 func _process(delta):
-	progress.value -= 1
 	if Input.is_action_pressed("LEFT"):
 		var cur_rot = get_rotation()
 		set_rotation(clamp(cur_rot + deg_to_rad(-rot_amount), deg_to_rad(-rot_limit), deg_to_rad(rot_limit)))
@@ -27,23 +29,35 @@ func _process(delta):
 		var cur_rot = get_rotation()
 		set_rotation(clamp(cur_rot + deg_to_rad(rot_amount), deg_to_rad(-rot_limit), deg_to_rad(rot_limit)))
 
-func _physics_process(delta):
+func going_up() -> bool :
+	return get_rotation() <= 0
+	
+func at_top_of_screen() -> bool:
+	return position.y < -50
+
+func at_bottom_of_screen() -> bool:
 	var bottom = get_viewport_rect().size.y - 250
+	return position.y > bottom
+
+func _physics_process(delta):
 	# Add the gravity.
 	if progress.value > 0:
-		if position.y < -50:
-			var neg = clamp(get_rotation(), 0, rot_limit)
-			velocity.y = 11 * rad_to_deg(neg)
-		elif position.y > bottom:
+		if at_top_of_screen(): #player is stuck at top of screen
+			var neg_pos = clamp(get_rotation(), 0, rot_limit) #only allow downward vel
+			velocity.y = 11 * rad_to_deg(neg_pos)
+		elif at_bottom_of_screen(): #Stuck on botom
 			var pos = clamp(get_rotation(), -1 * rot_limit, 0)
 			velocity.y = 11 * rad_to_deg(pos)
-		else:
+		else: #normal
 			velocity.y = 11 * rad_to_deg(get_rotation())
 	else:
 		if position.y < -100:
 			velocity.y = 5
 		else:
 			velocity.y += 5
+			
+	if going_up():
+		progress.value -= 1
 
 
 	# Get the input direction and handle the movement/deceleration.
