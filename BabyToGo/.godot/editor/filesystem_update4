@@ -1,3 +1,6 @@
 res://main_scene.tscn
+res://MobSpawner.tscn
+res://MobSpawner.gd
+res://enemy.tscn
 res://CharacterBody2D.gd
 res://Enemy.gd

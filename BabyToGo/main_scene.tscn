@@ -1,12 +1,12 @@
 [gd_scene load_steps=11 format=3 uid="uid://bra10aeii2nj"]
 
+[ext_resource type="Script" path="res://MobSpawner.gd" id="1_7maxl"]
 [ext_resource type="Texture2D" uid="uid://bexst6gncq2vf" path="res://Assets/StorkUp.png" id="1_7tgp7"]
 [ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_lx3i5"]
 [ext_resource type="Texture2D" uid="uid://ctphjhv4kbw2e" path="res://Assets/StorkDown.png" id="2_ll517"]
 [ext_resource type="Texture2D" uid="uid://ngpola08v4hq" path="res://Assets/EmptyBar.png" id="4_v15jo"]
 [ext_resource type="Texture2D" uid="uid://bfonpndhvqbqx" path="res://Assets/FullBar.png" id="5_sh0a0"]
-[ext_resource type="Script" path="res://Enemy.gd" id="6_8ljnt"]
-[ext_resource type="Texture2D" uid="uid://qvfw2vusqaro" path="res://icon.svg" id="7_gmgw3"]
+[ext_resource type="PackedScene" uid="uid://dhgossh2itfl2" path="res://enemy.tscn" id="6_rxbgy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3q3bv"]
 animations = [{
@@ -24,18 +24,40 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q07e4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_18ade"]
+[sub_resource type="AudioStream" id="AudioStream_cid1b"]
 
-[node name="World" type="Node2D"]
-position = Vector2(237, 152)
+[node name="World" type="Node2D" node_paths=PackedStringArray("player")]
+position = Vector2(237, 153)
+script = ExtResource("1_7maxl")
+distance = 100
+player = NodePath("Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(376, 167)
 
-[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("progress", "health_bar")]
+[node name="HealthBar" type="TextureProgressBar" parent="Camera2D"]
+offset_left = 60.0
+offset_top = -214.0
+offset_right = 527.0
+offset_bottom = -158.0
+value = 50.0
+texture_under = ExtResource("4_v15jo")
+texture_progress = ExtResource("5_sh0a0")
+
+[node name="StaminaBar" type="TextureProgressBar" parent="Camera2D"]
+offset_left = 60.0
+offset_top = -305.0
+offset_right = 527.0
+offset_bottom = -249.0
+value = 50.0
+texture_under = ExtResource("4_v15jo")
+texture_progress = ExtResource("5_sh0a0")
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("progress", "health_bar", "cam")]
 script = ExtResource("1_lx3i5")
-progress = NodePath("../StaminaBar")
-health_bar = NodePath("../HealthBar")
+progress = NodePath("../Camera2D/StaminaBar")
+health_bar = NodePath("../Camera2D/HealthBar")
+cam = NodePath("../Camera2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(2.08165e-12, 2.08165e-12)
@@ -52,34 +74,8 @@ shape = SubResource("CircleShape2D_q07e4")
 one_way_collision_margin = 11.4
 debug_color = Color(0.996078, 0, 0.223529, 0.419608)
 
-[node name="StaminaBar" type="TextureProgressBar" parent="."]
-offset_left = 436.0
-offset_top = -138.0
-offset_right = 903.0
-offset_bottom = -82.0
-value = 50.0
-texture_under = ExtResource("4_v15jo")
-texture_progress = ExtResource("5_sh0a0")
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStream_cid1b")
 
-[node name="HealthBar" type="TextureProgressBar" parent="."]
-offset_left = 436.0
-offset_top = -47.0
-offset_right = 903.0
-offset_bottom = 9.0
-value = 50.0
-texture_under = ExtResource("4_v15jo")
-texture_progress = ExtResource("5_sh0a0")
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(2.08165e-12, 200)
-script = ExtResource("6_8ljnt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(2.08165e-12, 2.08165e-12)
-scale = Vector2(5, 5)
-shape = SubResource("RectangleShape2D_18ade")
-
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
-texture = ExtResource("7_gmgw3")
-
-[connection signal="body_shape_entered" from="Area2D" to="Player" method="_on_player_enter_area"]
+[node name="Area2D" parent="." instance=ExtResource("6_rxbgy")]
+position = Vector2(-350, 403)
