@@ -12,7 +12,8 @@ var health = 100
 @export var stamina = 6000
 @export var progress: TextureProgressBar
 @export var health_bar: TextureProgressBar
-const SPEED = 300.0
+@export var cam: Camera2D
+const SPEED = 50.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -58,6 +59,7 @@ func at_bottom_of_screen() -> bool:
 
 func _physics_process(delta):
 	# Add the gravity.
+#	print("Playr:" + str(get_position().x) + " " + str(get_position().y))
 	if progress.value > 0:
 		if at_top_of_screen(): #player is stuck at top of screen
 			var neg_pos = clamp(get_rotation(), 0, rot_limit) #only allow downward vel
@@ -80,8 +82,10 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 
+#	velocity.x = SPEED
+#	velocity.x = move_toward(velocity.x, 10, SPEED)
 	velocity.x = SPEED
-	velocity.x = move_toward(velocity.x, 0, SPEED)
+	cam.set_position(Vector2(get_position().x, get_position().y))
 
 	move_and_slide()
 
