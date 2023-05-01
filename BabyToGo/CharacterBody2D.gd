@@ -4,20 +4,29 @@
 extends CharacterBody2D
 
 var health = 100
+
+
 @export var rot_amount = 1
 @export var rot_limit = 60
 @export var max_y_speed = 1
 @export var upper_y_limit = -70
 @export var lower_y_limit = 300
-@export var stamina = 6000
+@export var stamina = 300
 @export var progress: TextureProgressBar
 @export var health_bar: TextureProgressBar
 @export var cam: Camera2D
+
+#sound
+@export var gameMusic: AudioStreamPlayer2D
+@export var gameOverMusic: AudioStreamPlayer2D
+@export var menuMusic: AudioStreamPlayer2D
+
 const SPEED = 50.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
+	gameMusic.play()
 	progress.max_value = stamina
 	progress.value = stamina
 	health_bar.max_value = health
@@ -28,7 +37,10 @@ func get_y_velocity():
 
 #player dies
 func death():
-	pass
+	gameMusic.playing = false
+	if gameOverMusic.playing == false:
+		gameOverMusic.play()
+	
 
 #Player hits object	
 func hit():
@@ -70,6 +82,7 @@ func _physics_process(delta):
 		else: #normal
 			velocity.y = 11 * rad_to_deg(get_rotation())
 	else:
+		death()
 		if position.y < -100:
 			velocity.y = 5
 		else:
