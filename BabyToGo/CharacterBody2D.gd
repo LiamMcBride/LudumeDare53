@@ -97,8 +97,8 @@ func _physics_process(delta):
 
 #	velocity.x = SPEED
 #	velocity.x = move_toward(velocity.x, 10, SPEED)
-	velocity.x = SPEED
-	cam.set_position(Vector2(get_position().x, get_position().y))
+#	velocity.x = SPEED
+#	cam.set_position(Vector2(get_position().x, get_position().y))
 
 	move_and_slide()
 

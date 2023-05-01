@@ -4,3 +4,5 @@ res://MobSpawner.gd
 res://enemy.tscn
 res://CharacterBody2D.gd
 res://Enemy.gd
+res://parallax_background.tscn
+res://Ground.gd

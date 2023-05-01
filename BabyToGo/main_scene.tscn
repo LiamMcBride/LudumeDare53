@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bra10aeii2nj"]
+[gd_scene load_steps=14 format=3 uid="uid://bra10aeii2nj"]
 
 [ext_resource type="Script" path="res://MobSpawner.gd" id="1_7maxl"]
 [ext_resource type="Texture2D" uid="uid://bexst6gncq2vf" path="res://Assets/StorkUp.png" id="1_7tgp7"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://bkdqlr41o1iap" path="res://Assets/Game_1.mp3" id="8_ekdlr"]
 [ext_resource type="AudioStream" uid="uid://dw03plq1x4vkt" path="res://Assets/Game_Over.mp3" id="9_jsn0p"]
 [ext_resource type="AudioStream" uid="uid://ctw4kjits65cp" path="res://Assets/Menu.mp3" id="10_yunii"]
+[ext_resource type="PackedScene" uid="uid://icptik2vmfep" path="res://parallax_background.tscn" id="11_obbah"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3q3bv"]
 animations = [{
@@ -27,37 +28,40 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q07e4"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("player")]
-position = Vector2(237, 153)
+[node name="World" type="Node2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
 script = ExtResource("1_7maxl")
 distance = 100
-player = NodePath("Player")
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("11_obbah")]
+offset = Vector2(2.08165e-12, 1800)
+transform = Transform2D(1, 0, 0, 1, 2.08165e-12, 1800)
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = 436.0
+offset_top = -47.0
+offset_right = 903.0
+offset_bottom = 9.0
+value = 50.0
+texture_under = ExtResource("4_v15jo")
+texture_progress = ExtResource("5_sh0a0")
+
+[node name="StaminaBar" type="TextureProgressBar" parent="."]
+offset_left = 436.0
+offset_top = -138.0
+offset_right = 903.0
+offset_bottom = -82.0
+value = 50.0
+texture_under = ExtResource("4_v15jo")
+texture_progress = ExtResource("5_sh0a0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(376, 167)
-
-[node name="HealthBar" type="TextureProgressBar" parent="Camera2D"]
-offset_left = 60.0
-offset_top = -214.0
-offset_right = 527.0
-offset_bottom = -158.0
-value = 50.0
-texture_under = ExtResource("4_v15jo")
-texture_progress = ExtResource("5_sh0a0")
-
-[node name="StaminaBar" type="TextureProgressBar" parent="Camera2D"]
-offset_left = 60.0
-offset_top = -305.0
-offset_right = 527.0
-offset_bottom = -249.0
-value = 50.0
-texture_under = ExtResource("4_v15jo")
-texture_progress = ExtResource("5_sh0a0")
+position = Vector2(376, 308)
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("progress", "health_bar", "cam", "gameMusic", "gameOverMusic", "menuMusic")]
 script = ExtResource("1_lx3i5")
-progress = NodePath("../Camera2D/StaminaBar")
-health_bar = NodePath("../Camera2D/HealthBar")
+progress = NodePath("../StaminaBar")
+health_bar = NodePath("../HealthBar")
 cam = NodePath("../Camera2D")
 gameMusic = NodePath("../GameMusic")
 gameOverMusic = NodePath("../GameOverMusic")
