@@ -1,6 +1,6 @@
 Sprite2D
-ParallaxBackground
 ParallaxLayer
+ParallaxBackground
 AudioStreamPlayer2D
 Node2D
 Camera2D
